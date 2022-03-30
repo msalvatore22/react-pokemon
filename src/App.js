@@ -5,6 +5,7 @@ import styled from "@emotion/styled";
 import PokemonInfo from "./components/PokemonInfo";
 import PokemonFilter from "./components/PokemonFilter";
 import PokemonTable from "./components/PokemonTable";
+import PokemonContext from "./PokemonContext";
 
 const Title = styled.h1`
   text-align: center;
@@ -20,7 +21,6 @@ const Container = styled.div`
   padding-top: 1rem;
 `;
 
-
 function App() {
   const [pokemon, pokemonSet] = React.useState([]);
   const [filter, filterSet] = React.useState("");
@@ -33,17 +33,27 @@ function App() {
   }, []);
 
   return (
-    <Container>
-      <Title>Pokemon Search</Title>
-      <TwoColumnLayout>
-        <div>
-          <PokemonFilter filter={filter} filterSet={filterSet} />
-          <PokemonTable pokemon={pokemon} filter={filter} selectedPokemonSet={selectedPokemonSet} />
-          
-        </div>
-        {selectedPokemon && <PokemonInfo {...selectedPokemon} />}
-      </TwoColumnLayout>
-    </Container>
+    <PokemonContext.Provider
+      value={{
+        filter,
+        filterSet,
+        pokemon,
+        pokemonSet,
+        selectedPokemon,
+        selectedPokemonSet,
+      }}
+    >
+      <Container>
+        <Title>Pokemon Search</Title>
+        <TwoColumnLayout>
+          <div>
+            <PokemonFilter />
+            <PokemonTable />
+          </div>
+          <PokemonInfo />
+        </TwoColumnLayout>
+      </Container>
+    </PokemonContext.Provider>
   );
 }
 
