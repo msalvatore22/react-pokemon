@@ -3,12 +3,12 @@ import Button from "@mui/material/Button";
 import PokemonType from "../pokemonType";
 import PropTypes from "prop-types";
 
-const PokemonRow = ({ pokemon, onSelect }) => (
+const PokemonRow = ({ pokemon, onClick }) => (
   <tr>
     <td>{pokemon.name.english}</td>
     <td>{pokemon.type.join(", ")}</td>
     <td>
-      <Button variant="contained" onClick={() => onSelect(pokemon)}>
+      <Button variant="contained" onClick={() => onClick(pokemon)}>
         MORE INFO
       </Button>
     </td>
